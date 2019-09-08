@@ -1,3 +1,10 @@
+// importing constants
+import { CONSTANTS } from "../actions";
+
+// this is temporary, I gotta fix this
+let listID = 5;
+
+// setting up the inital state for listReducer
 const initialState = [
   {
     id: 0,
@@ -47,6 +54,14 @@ const initialState = [
 
 const listsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CONSTANTS.ADD_LIST:
+      const newList = {
+        id: listID,
+        title: action.payload,
+        tickets: []
+      };
+      listID += 1;
+      return [...state, newList];
     default:
       return state;
   }

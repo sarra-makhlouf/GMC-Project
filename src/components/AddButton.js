@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Icon from "@material-ui/core/Icon";
 import { Card, Button } from "@material-ui/core";
 import Textarea from "react-textarea-autosize";
+import { connect } from "react-redux";
+import { addList } from "../actions";
 
 // A reusable component that can be used to either add lists or tickets "depending on the prop recieved"
 class AddButton extends Component {
@@ -29,6 +31,17 @@ class AddButton extends Component {
     this.setState({
       text: e.target.value
     });
+  };
+
+  // dispatching the action addList
+  handleAddList = () => {
+    const { dispatch } = this.props;
+    const { text } = this.state;
+
+    if (text) {
+      dispatch(addList(text));
+    }
+    return;
   };
 
   //a function that decides if it should renders a list button or a ticket button
@@ -93,6 +106,7 @@ class AddButton extends Component {
         </Card>
         <div style={styles.formButtonGroup}>
           <Button
+            onMouseDown={this.handleAddList}
             variant="contained"
             style={{ color: "white", backgroundColor: "#5aac44" }}
           >
@@ -111,6 +125,7 @@ class AddButton extends Component {
 }
 
 const styles = {
+  // styling the button
   inactiveAddButton: {
     display: "flex",
     alignItems: "center",
@@ -120,6 +135,7 @@ const styles = {
     width: 272
   },
 
+  // styling the form
   formButtonGroup: {
     marginTop: 8,
     display: "flex",
@@ -128,4 +144,4 @@ const styles = {
   }
 };
 
-export default AddButton;
+export default connect()(AddButton);

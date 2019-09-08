@@ -1,7 +1,7 @@
 const initialState = [
   {
     id: 0,
-    title: "BackLog",
+    title: "To Do",
     tickets: [
       {
         id: 0,
@@ -15,7 +15,7 @@ const initialState = [
   },
   {
     id: 1,
-    title: "Weekly Sprint",
+    title: "In Progress",
     tickets: [
       {
         id: 0,
@@ -25,7 +25,7 @@ const initialState = [
   },
   {
     id: 2,
-    title: "In Progress",
+    title: "Code Review",
     tickets: [
       {
         id: 0,
@@ -35,21 +35,11 @@ const initialState = [
   },
   {
     id: 3,
-    title: "Under Review",
-    tickets: [
-      {
-        id: 0,
-        text: "Lorem"
-      }
-    ]
-  },
-  {
-    id: 4,
     title: "Done",
     tickets: [
       {
         id: 0,
-        text: "Ipsum"
+        text: "Lorem"
       }
     ]
   }

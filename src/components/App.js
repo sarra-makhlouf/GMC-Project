@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TicketsList from "./TicketsList";
 import { connect } from "react-redux";
-import { flexbox } from "@material-ui/system";
+import AddButton from "./AddButton";
 
 class App extends Component {
   render() {
@@ -11,8 +11,13 @@ class App extends Component {
         <h2>Project Board</h2>
         <div style={styles.listsContainer}>
           {lists.map(list => (
-            <TicketsList title={list.title} tickets={list.tickets} />
+            <TicketsList
+              title={list.title}
+              tickets={list.tickets}
+              key={list.id}
+            />
           ))}
+          <AddButton list />
         </div>
       </div>
     );

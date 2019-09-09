@@ -39,6 +39,10 @@ class AddButton extends Component {
     const { text } = this.state;
 
     if (text) {
+      //resetting the state to empty string so that user have a fresh blank field after prev input
+      this.setState({
+        text: ""
+      });
       dispatch(addList(text));
     }
     return;
@@ -50,6 +54,10 @@ class AddButton extends Component {
     const { text } = this.state;
 
     if (text) {
+      //resetting the state to empty string so that user have a fresh blank field after prev input
+      this.setState({
+        text: ""
+      });
       dispatch(addTicket(listID, text));
     }
     return;

@@ -12,6 +12,7 @@ class App extends Component {
         <div style={styles.listsContainer}>
           {lists.map(list => (
             <TicketsList
+              listID={list.id}
               title={list.title}
               tickets={list.tickets}
               key={list.id}

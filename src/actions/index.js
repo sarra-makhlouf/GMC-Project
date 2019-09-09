@@ -1,5 +1,6 @@
-// exporting every function from the file listsActions.js
+// exporting every action from the file listsActions.js
 export * from "./listsActions";
+export * from "./ticketsActions";
 
 // constants objects
 export const CONSTANTS = {

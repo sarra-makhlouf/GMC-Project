@@ -3,7 +3,7 @@ import Icon from "@material-ui/core/Icon";
 import { Card, Button } from "@material-ui/core";
 import Textarea from "react-textarea-autosize";
 import { connect } from "react-redux";
-import { addList } from "../actions";
+import { addList, addTicket } from "../actions";
 
 // A reusable component that can be used to either add lists or tickets "depending on the prop recieved"
 class AddButton extends Component {
@@ -40,6 +40,17 @@ class AddButton extends Component {
 
     if (text) {
       dispatch(addList(text));
+    }
+    return;
+  };
+
+  // dispatching the action addTicket
+  handleAddTicket = () => {
+    const { dispatch, listID } = this.props;
+    const { text } = this.state;
+
+    if (text) {
+      dispatch(addTicket(listID, text));
     }
     return;
   };
@@ -106,7 +117,9 @@ class AddButton extends Component {
         </Card>
         <div style={styles.formButtonGroup}>
           <Button
-            onMouseDown={this.handleAddList}
+            // using onMouseDown because it fires before onBlur, if I use onClick the onBlur
+            // will then be the first to fire and the event associated to onClick won't even fire
+            onMouseDown={list ? this.handleAddList : this.handleAddTicket}
             variant="contained"
             style={{ color: "white", backgroundColor: "#5aac44" }}
           >

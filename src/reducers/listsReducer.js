@@ -3,6 +3,7 @@ import { CONSTANTS } from "../actions";
 
 // this is temporary, I gotta fix this
 let listID = 5;
+let ticketID = 5;
 
 // setting up the inital state for listReducer
 const initialState = [
@@ -62,6 +63,27 @@ const listsReducer = (state = initialState, action) => {
       };
       listID += 1;
       return [...state, newList];
+
+    case CONSTANTS.ADD_TICKET:
+      const newTicket = {
+        id: ticketID,
+        text: action.payload.text
+      };
+      ticketID += 1;
+
+      //determining in which list to store the ticket
+      const newState = state.map(list => {
+        if (list.id === action.payload.listID) {
+          return {
+            ...list,
+            tickets: [...list.tickets, newTicket]
+          };
+        } else {
+          return list;
+        }
+      });
+      return newState;
+
     default:
       return state;
   }

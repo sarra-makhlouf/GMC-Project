@@ -2,14 +2,14 @@ import React from "react";
 import Ticket from "./Ticket";
 import AddButton from "./AddButton";
 
-const TicketsList = ({ title, tickets }) => {
+const TicketsList = ({ title, tickets, listID }) => {
   return (
     <div style={styles.container}>
       <h4>{title.toUpperCase()}</h4>
       {tickets.map(ticket => (
         <Ticket text={ticket.text} key={ticket.id} />
       ))}
-      <AddButton />
+      <AddButton listID={listID} />
     </div>
   );
 };

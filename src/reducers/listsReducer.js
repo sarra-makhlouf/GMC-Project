@@ -8,45 +8,45 @@ let ticketID = 5;
 // setting up the inital state for listReducer
 const initialState = [
   {
-    id: 0,
+    id: `list-${0}`,
     title: "To Do",
     tickets: [
       {
-        id: 0,
+        id: `ticket-${0}`,
         text: "Create a database for my app"
       },
       {
-        id: 1,
+        id: `ticket-${1}`,
         text: "Create a server for my app"
       }
     ]
   },
   {
-    id: 1,
+    id: `list-${1}`,
     title: "In Progress",
     tickets: [
       {
-        id: 0,
+        id: `ticket-${2}`,
         text: "Create the UI"
       }
     ]
   },
   {
-    id: 2,
+    id: `list-${2}`,
     title: "Code Review",
     tickets: [
       {
-        id: 0,
+        id: `ticket-${3}`,
         text: "Create the Structure for the app"
       }
     ]
   },
   {
-    id: 3,
+    id: `list-${3}`,
     title: "Done",
     tickets: [
       {
-        id: 0,
+        id: `ticket-${4}`,
         text: "Lorem"
       }
     ]
@@ -57,7 +57,7 @@ const listsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.ADD_LIST:
       const newList = {
-        id: listID,
+        id: `list-${listID}`,
         title: action.payload,
         tickets: []
       };
@@ -66,7 +66,7 @@ const listsReducer = (state = initialState, action) => {
 
     case CONSTANTS.ADD_TICKET:
       const newTicket = {
-        id: ticketID,
+        id: `ticket-${ticketID}`,
         text: action.payload.text
       };
       ticketID += 1;

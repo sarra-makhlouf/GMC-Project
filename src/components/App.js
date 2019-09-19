@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 import AddButton from "./AddButton";
 import { DragDropContext } from "react-beautiful-dnd";
 import { sort } from "../actions";
+import styled from "styled-components";
+
+// creating styled components using ... wait for it ....the "styled-components" pkg!!
+const ListsContainer = styled.div`
+  display: flex;
+`;
 
 class App extends Component {
   // a function containing the reordering logic
@@ -33,7 +39,7 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className="App">
           <h2>Project Board</h2>
-          <div style={styles.listsContainer}>
+          <ListsContainer>
             {lists.map(list => (
               <TicketsList
                 listID={list.id}
@@ -43,18 +49,12 @@ class App extends Component {
               />
             ))}
             <AddButton list />
-          </div>
+          </ListsContainer>
         </div>
       </DragDropContext>
     );
   }
 }
-
-const styles = {
-  listsContainer: {
-    display: "flex"
-  }
-};
 
 const mapStateToProps = state => ({
   lists: state.lists

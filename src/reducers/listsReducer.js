@@ -94,6 +94,7 @@ const listsReducer = (state = initialState, action) => {
         droppableId
       } = action.payload;
       const newState = [...state];
+
       // d&d is happening within the same column/list
       if (droppableIdStart === droppableIdEnd) {
         const list = state.find(list => droppableIdStart === list.id);
@@ -102,6 +103,19 @@ const listsReducer = (state = initialState, action) => {
         //inserting the card in the new position = where the drop ended
         list.tickets.splice(droppableIndexEnd, 0, ...ticket);
       }
+
+      // d&d tickets across diff lists
+      if (droppableIdStart !== droppableIdEnd) {
+        // find the list where the drag started
+        const listStart = state.find(list => droppableIdStart === list.id);
+        //grabbing the ticket being moved around from the list
+        const ticket = listStart.tickets.splice(droppableIndexStart, 1);
+        // find the list where the drop ended
+        const listEnd = state.find(list => droppableIdEnd === list.id);
+        //inserting the card in the new position = where the drop ended
+        listEnd.tickets.splice(droppableIndexEnd, 0, ...ticket);
+      }
+
       return newState;
 
     default:

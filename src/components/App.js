@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TicketsList from "./TicketsList";
 import { connect } from "react-redux";
 import AddButton from "./AddButton";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { sort } from "../actions";
 import styled from "styled-components";
 
@@ -39,6 +39,7 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className="App">
           <h2>Project Board</h2>
+          {/* <Droppable droppableId="all-lists"> */}
           <ListsContainer>
             {lists.map(list => (
               <TicketsList
@@ -50,6 +51,7 @@ class App extends Component {
             ))}
             <AddButton list />
           </ListsContainer>
+          {/* </Droppable> */}
         </div>
       </DragDropContext>
     );

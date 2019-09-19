@@ -4,6 +4,7 @@ import { Card, Button } from "@material-ui/core";
 import Textarea from "react-textarea-autosize";
 import { connect } from "react-redux";
 import { addList, addTicket } from "../actions";
+import { isAbsolute } from "path";
 
 // A reusable component that can be used to either add lists or tickets "depending on the prop recieved"
 class AddButton extends Component {
@@ -11,6 +12,13 @@ class AddButton extends Component {
     formIsOpen: false,
     text: ""
   };
+
+  // componentDidUpdate = (preProps, prevState) => {
+  //   if (!prevState.openForm)
+  //     this.props.textHeight(
+  //       document.getElementById("expand").getBoundingClientRect().height
+  //     );
+  // };
 
   //a handler that sets the formIsOpen to "true"
   openForm = () => {
@@ -74,7 +82,12 @@ class AddButton extends Component {
 
     return (
       <div
-        onClick={this.openForm}
+        onClick={() => {
+          this.openForm();
+          // console.log(
+          //   document.getElementById("expand").getBoundingClientRect().height
+          // );
+        }}
         style={{
           //variable styles depending on whether its a list or a ticket button
           opacity: buttonOpacity,
@@ -98,12 +111,14 @@ class AddButton extends Component {
     const buttonTitle = list ? "Add List" : "Add Ticket";
 
     return (
-      <div>
+      <div style={styles.expanded}>
         <Card
+          id="expand"
           style={{
             minHeight: 85,
-            minWidth: 272,
-            padding: "6px 8px 2px"
+            minWidth: 280,
+            padding: "6px 8px 2px",
+            boxSizing: "border-box"
           }}
         >
           {/* using the react-textarea-autosize npm package 
@@ -111,9 +126,17 @@ class AddButton extends Component {
           <Textarea
             placeholder={placeHolder}
             autoFocus
-            onBlur={this.closeForm}
+            id="expand"
+            //onBlur={this.closeForm}
             value={this.state.text}
-            onChange={this.handleInputChange}
+            onChange={e => {
+              this.handleInputChange(e);
+            }}
+            onKeyPress={() =>
+              this.props.textHeight(
+                document.getElementById("expand").getBoundingClientRect().height
+              )
+            }
             style={{
               resize: "none",
               width: "100%",
@@ -153,15 +176,25 @@ const styles = {
     cursor: "pointer",
     borderRadius: 3,
     height: 36,
-    width: 272
+    // width: 272
+    position: "absolute",
+    bottom: 0
   },
 
   // styling the form
   formButtonGroup: {
     marginTop: 8,
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "space-between"
+  },
+
+  expanded: {
+    position: "absolute",
+    left: "8px",
+    right: "8px",
+    boxSizing: "border-box",
+    bottom: 8
   }
 };
 

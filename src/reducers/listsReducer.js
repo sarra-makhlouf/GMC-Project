@@ -64,7 +64,7 @@ const listsReducer = (state = initialState, action) => {
       listID += 1;
       return [...state, newList];
 
-    case CONSTANTS.ADD_TICKET:
+    case CONSTANTS.ADD_TICKET: {
       const newTicket = {
         id: `ticket-${ticketID}`,
         text: action.payload.text
@@ -82,6 +82,26 @@ const listsReducer = (state = initialState, action) => {
           return list;
         }
       });
+      return newState;
+    }
+
+    case CONSTANTS.DRAG_HAPPENED:
+      const {
+        droppableIdStart,
+        droppableIdEnd,
+        droppableIndexStart,
+        droppableIndexEnd,
+        droppableId
+      } = action.payload;
+      const newState = [...state];
+      // d&d is happening within the same column/list
+      if (droppableIdStart === droppableIdEnd) {
+        const list = state.find(list => droppableIdStart === list.id);
+        //grabbing the ticket being moved around from the list
+        const ticket = list.tickets.splice(droppableIndexStart, 1);
+        //inserting the card in the new position = where the drop ended
+        list.tickets.splice(droppableIndexEnd, 0, ...ticket);
+      }
       return newState;
 
     default:
